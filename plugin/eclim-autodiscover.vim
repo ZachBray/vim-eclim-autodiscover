@@ -1,3 +1,8 @@
+if exists("g:loaded_eclim_autodiscover")
+  finish
+endif
+let g:loaded_eclim_autodiscover = 1
+
 function BootstrapEclim()
   " This function will wait for eclim to load
   " and then disover all projects in the working
@@ -8,7 +13,9 @@ function BootstrapEclim()
     let l:has_eclim_started = eclim#PingEclim(0)
     if l:has_eclim_started
       " Remove timer callback
-      autocmd! CursorHold * call WaitForEclim()
+      augroup EclimAutoDiscover
+        au!
+      augroup END
       " Load projects
       call eclim#project#util#ProjectImportDiscover('.')
     endif
@@ -16,7 +23,9 @@ function BootstrapEclim()
   endfunction
 
   " Register timer callback
-  autocmd CursorHold * call WaitForEclim()
+  augroup EclimAutoDiscover
+    autocmd CursorHold * call WaitForEclim()
+  augroup END
 endfunction
 
 " autocmd VimEnter * call BootstrapEclim()
