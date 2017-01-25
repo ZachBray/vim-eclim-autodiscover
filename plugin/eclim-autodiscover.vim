@@ -19,4 +19,5 @@ function BootstrapEclim()
   autocmd CursorHold * call WaitForEclim()
 endfunction
 
-autocmd VimEnter * call BootstrapEclim()
+" autocmd VimEnter * call BootstrapEclim()
+call BootstrapEclim()
